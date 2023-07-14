@@ -1,6 +1,4 @@
 import base64
-from email import message
-from re import L
 
 def Base64(choice):
     if choice == "1":
