@@ -1,7 +1,8 @@
 import base64
+from email import message
+from re import L
 
 def Base64(choice):
-    #encoding code
     if choice == "1":
         message = input('Enter the Plain Text: ')
         message_bytes = message.encode('ascii')
@@ -10,7 +11,6 @@ def Base64(choice):
     
         print(base64_message)
 
-    #decoding code
     elif choice == '2':
         base64_messaged = input('Enter the Cipher Text: ')
         base64d_bytes = base64_messaged.encode('ascii')
@@ -41,6 +41,25 @@ def Caeser(choice):
                 ct += chr((ord(char) + key - 97) % 26 + 97)
 
         print(ct)
+    
+    elif choice == '2':
+        def caesar_decrypt(ciphertext, shift):
+            pt = ""
+            for char in ciphertext:
+                if char.isalpha():
+                    ascii_offset = ord('a') if char.islower() else ord('A')
+                    decrypted_char = chr((ord(char) - ascii_offset - shift) % 26 + ascii_offset)
+                    pt += decrypted_char
+                else:
+                    pt += char
+            return pt
+
+        ciphertext = input("Enter the ciphertext: ")
+
+        print("Brute force decryption:")
+        for shift in range(26):
+            decrypted_text = caesar_decrypt(ciphertext, shift)
+            print(f"Shift = {shift:2}: {decrypted_text}")
 
 
 
