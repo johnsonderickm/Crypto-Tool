@@ -1,5 +1,6 @@
 import base64
 
+#base64 code
 def Base64(choice):
     if choice == "1":
         message = input('Enter the Plain Text: ')
@@ -23,7 +24,7 @@ def Base64(choice):
         print("1nV4L1d_cH01c3")
 
 
-
+#Caeser Cipher Code
 def Caeser(choice):
     if choice == '1':
         ct = " "
@@ -60,17 +61,58 @@ def Caeser(choice):
             print(f"Shift = {shift:2}: {decrypted_text}")
 
 
+#Atbash Code
+def Atbash(choice):
+    if choice  == '1' or choice == '2':
+        lookup_dict = {'A' : 'Z', 'B' : 'Y', 'C' : 'X', 'D' : 'W', 'E' : 'V',
+            'F' : 'U', 'G' : 'T', 'H' : 'S', 'I' : 'R', 'J' : 'Q',
+            'K' : 'P', 'L' : 'O', 'M' : 'N', 'N' : 'M', 'O' : 'L',
+            'P' : 'K', 'Q' : 'J', 'R' : 'I', 'S' : 'H', 'T' : 'G',
+            'U' : 'F', 'V' : 'E', 'W' : 'D', 'X' : 'C', 'Y' : 'B', 'Z' : 'A', 
+            'a' : 'z', 'b' : 'y', 'c' : 'x', 'd' : 'w', 'e' : 'v',
+            'f' : 'u', 'g' : 't', 'h' : 's', 'i' : 'r', 'j' : 'q',
+            'k' : 'p', 'l' : 'o', 'm' : 'n', 'n' : 'm', 'o' : 'l',
+            'p' : 'k', 'q' : 'j', 'r' : 'i', 's' : 'h', 't' : 'g',
+            'u' : 'f', 'v' : 'e', 'w' : 'd', 'x' : 'c', 'y' : 'b', 'z' : 'a',
+            '?' : '/', '/' : '?', '<' : '>', '>' : '<', '-' : '_', 
+            '_' : '-', '!' : '@', '@' : '!', '#' : '$', '$' : '#',
+            '%' : '^', '^' : '%', '&' : '*', '*' : '&', '(' : ')',
+            ')' : '(', '1' : '0', '2' : '9', '3' : '8', '4' : '7',
+            '5' : '6', '6' : '5', '7' : '4', '8' : '3', '9' : '2', '0' : '1'}
+
+        message = input('\nEnter your message: ')
+        decoded = ''
+
+        for letter in message:
+            if (letter != ' '):
+                decoded += lookup_dict[letter]
+        
+            else:
+                decoded += ' '
+        
+        print(decoded)
+    
+    else:
+        print("1nV4L1d_cH01c3")
+
+
 
 #driver code
 while True:
-    option = input('\n\nSelect the option: \n1. Base64 \n2. Ceaser Cipher \n\nYour Choice: ')
+    option = input('\n\nSelect the option: \n1. Base64 \n2. Ceaser Cipher \n3. Atbash Cipher \n\nYour Choice: ')
     choice = input('\nSelect: \n1. Encode \n2. Decode \n3. Main Menu \n\nYour Choice: ')
     
     if option == '1':
+        print("---------- BASE 64 ----------")
         Base64(choice)
     
     elif option == '2':
+        print("---------- CAESER CIPHER ----------")
         Caeser(choice)
+
+    elif option == '3':
+        print("---------- ATBASH CIPHER ----------")
+        Atbash(choice)
    
     else:
         print("1nV4L1d_cH01c3")
