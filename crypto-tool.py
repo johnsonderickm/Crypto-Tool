@@ -1,4 +1,7 @@
 import base64
+import pyfiglet
+from urllib.parse import quote, unquote
+
 
 #base64 code
 def Base64(choice):
@@ -96,16 +99,37 @@ def Atbash(choice):
         print("1nV4L1d_cH01c3")
 
 
+#URL Encode
+def Url(choice):
+    if choice == '1':
+        pt = input('\nEnter the Plaintext: ')
+        ct = quote(pt)
+        print('\n\n')
+        print(ct)
+    
+    elif choice == '2':
+        ct = input('\nEnter the Ciphertext: ')
+        pt = unquote(ct)
+        print('\n\n')
+        print(pt)
+    
+    else:
+        print("1nV4L1d_cH01c3")
+
+
 
 #driver code
+banner = pyfiglet.figlet_format("CRYPTO TOOL")
+print(banner)
+
 while True:
-    option = input('\n\nSelect the option: \n1. Base64 \n2. Ceaser Cipher \n3. Atbash Cipher \n\nYour Choice: ')
+    option = input('\n\nSelect the option: \n1. Base64 \n2. Ceaser Cipher \n3. Atbash Cipher \n4. URL Encoder/Decoder \n\nYour Choice: ')
     choice = input('\nSelect: \n1. Encode \n2. Decode \n3. Main Menu \n\nYour Choice: ')
     
     if option == '1':
         print("---------- BASE 64 ----------")
         Base64(choice)
-    
+
     elif option == '2':
         print("---------- CAESER CIPHER ----------")
         Caeser(choice)
@@ -113,6 +137,10 @@ while True:
     elif option == '3':
         print("---------- ATBASH CIPHER ----------")
         Atbash(choice)
+
+    elif option == '4':
+        print("---------- URL ENCODER/DECODER ----------")
+        Url(choice)
    
     else:
         print("1nV4L1d_cH01c3")
