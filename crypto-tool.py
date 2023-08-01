@@ -1,6 +1,9 @@
 import base64
 import pyfiglet
 from urllib.parse import quote, unquote
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import hashes
 
 
 #base64 code
@@ -21,7 +24,6 @@ def Base64(choice):
 
         print(messaged)
         
-    #elif choice == 3:
 
     else:
         print("1nV4L1d_cH01c3")
@@ -99,7 +101,7 @@ def Atbash(choice):
         print("1nV4L1d_cH01c3")
 
 
-#URL Encode
+#URL Encode/DECODE
 def Url(choice):
     if choice == '1':
         pt = input('\nEnter the Plaintext: ')
@@ -118,13 +120,55 @@ def Url(choice):
 
 
 
+#RSA
+def RSA(choice):
+
+    def generate_rsa_keypair():
+        private_key = rsa.generate_private_key(
+            public_exponent=65537,
+            key_size=2048,
+            backend=default_backend()
+        )
+        public_key = private_key.public_key()
+        return private_key, public_key
+
+    if choice == '1':
+        private_key, public_key = generate_rsa_keypair()
+        message = input('\nEnter the plain text: ')
+        encrypted_message = public_key.encrypt(
+            message.encode('utf-8'),
+            padding.OAEP(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(),
+                label=None
+            )
+        )
+        return base64.b64encode(encrypted_message).decode('utf-8')
+    
+    if choice == '2':
+        private_key, public_key = generate_rsa_keypair()
+        encrypted_message = input('\nEnter the cipher text: ')
+        encrypted_message = base64.b64decode(encrypted_message.encode('utf-8'))
+        decrypted_message = private_key.decrypt(
+            encrypted_message,
+            padding.OAEP(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(),
+                label=None
+            )
+        )
+        return decrypted_message.decode('utf-8')
+
+
+
+
 #driver code
 banner = pyfiglet.figlet_format("CRYPTO TOOL")
 print(banner)
 
 while True:
     option = input('\n\nSelect the option: \n1. Base64 \n2. Ceaser Cipher \n3. Atbash Cipher \n4. URL Encoder/Decoder \n\nYour Choice: ')
-    choice = input('\nSelect: \n1. Encode \n2. Decode \n3. Main Menu \n\nYour Choice: ')
+    choice = input('\nSelect: \n1. Encode \n2. Decode \n\nYour Choice: ')
     
     if option == '1':
         print("---------- BASE 64 ----------")
@@ -141,6 +185,10 @@ while True:
     elif option == '4':
         print("---------- URL ENCODER/DECODER ----------")
         Url(choice)
-   
+    
+    elif option == '5':
+        print("---------- RSA ----------")
+        RSA(choice)
+
     else:
         print("1nV4L1d_cH01c3")
